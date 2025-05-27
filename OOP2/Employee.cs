@@ -16,7 +16,12 @@ namespace OOP2
         {
             return 4000000;
         }
-
+        public void UpdateInfo(string newName, string newIdCard, DateTime newBirthday)
+        {
+            Name = newName;
+            IdCard = newIdCard;
+            Birthday = newBirthday;
+        }
         public override string ToString()
         {
             return Id+"\t"+IdCard+"\t"+Name+"\t"+Birthday.ToString("dd/MM/yyyy")+"\t"+calSalary();
