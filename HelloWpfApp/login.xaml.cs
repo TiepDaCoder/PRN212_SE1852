@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 
 namespace HelloWpfApp
 {
@@ -15,7 +14,7 @@ namespace HelloWpfApp
 
         private void btnLogin(object sender, RoutedEventArgs e)
         {
-            if (txtUserName.Text == "obama" && txtPassword.Text == "123")
+            if (txtUserName.Text == "admin" && txtPassword.Password == "123456")
             {
                 MainWindow mw = new MainWindow();
                 mw.Show();

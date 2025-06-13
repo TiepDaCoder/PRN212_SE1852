@@ -12,6 +12,7 @@
         <Label Content="Password:" HorizontalAlignment="Left" Margin="287,174,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnDangNhap" Content="Đăng nhập" HorizontalAlignment="Left" Margin="305,217,0,0" VerticalAlignment="Top" Click="btnLogin"/>
         <Button x:Name="btnThoat" Content="Thoát" HorizontalAlignment="Left" Margin="395,217,0,0" VerticalAlignment="Top" Click="btnExit"/>
+        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="375,178,0,0" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>
