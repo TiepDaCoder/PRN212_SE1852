@@ -13,11 +13,6 @@ namespace HelloWpfApp
             InitializeComponent();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
         private void btnLogin(object sender, RoutedEventArgs e)
         {
             if (txtUserName.Text == "obama" && txtPassword.Text == "123")
