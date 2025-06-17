@@ -1,0 +1,21 @@
+﻿<Window x:Class="CheckBoxControlEvent.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CheckBox"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel HorizontalAlignment="Left" Height="48" Margin="269,96,0,0" VerticalAlignment="Top" Width="119">
+            <Label Content="Bạn thích những gì?"/>
+            <CheckBox x:Name="chkAll" Content="Thích toàn bộ" IsChecked="False" Checked="ChkToanBo_Checked" Unchecked="ChkToanBo_Unchecked"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Height="64" Margin="283,149,0,0" VerticalAlignment="Top" Width="175">
+            <CheckBox x:Name="chkTech" Content="Thích nghiên cứu công nghệ" Checked="chkSub_CheckedChanged" Unchecked="chkSub_CheckedChanged"/>
+            <CheckBox x:Name="chkTour" Content="Thích đi du lịch" Checked="chkSub_CheckedChanged" Unchecked="chkSub_CheckedChanged"/>
+            <CheckBox x:Name="chkFootball" Content="Thích đá banh" Checked="chkSub_CheckedChanged" Unchecked="chkSub_CheckedChanged"/>
+            <CheckBox x:Name="chkMovie" Content="Thích xem phim" Checked="chkSub_CheckedChanged" Unchecked="chkSub_CheckedChanged"/>
+        </StackPanel>
+    </Grid>
+</Window>
