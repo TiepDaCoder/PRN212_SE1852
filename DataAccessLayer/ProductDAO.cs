@@ -26,5 +26,27 @@ namespace DataAccessLayer
             products.Add(p);
             return true;
         }
+        public bool UpdateProduct(Product p)
+        {
+            Product old = products.FirstOrDefault(x => x.Id == p.Id);
+            if (old == null)
+            {
+                return false;
+            }
+            old.Name = p.Name;
+            old.Quantity = p.Quantity;
+            old.Price = p.Price;
+            return true;
+        }
+        public bool DeleteProduct(int id)
+        {
+            Product pDel = products.FirstOrDefault(x => x.Id == id);
+            if (pDel == null)
+            {
+                return false;
+            }
+            products.Remove(pDel);
+            return true;
+        }
     }
 }

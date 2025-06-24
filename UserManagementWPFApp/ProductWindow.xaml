@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ProductWindow" Height="450" Width="800">
     <Grid>
-        <ListView x:Name="lvProduct" d:ItemsSource="{d:SampleData ItemCount=5}" FontSize="24" Margin="10,10,313,196">
+        <ListView x:Name="lvProduct" d:ItemsSource="{d:SampleData ItemCount=5}" FontSize="24" Margin="10,10,313,196" SelectionChanged="lvProduct_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Mã sản phẩm" DisplayMemberBinding="{Binding Id}"/>
@@ -25,6 +25,8 @@
         <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="176,291,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Height="30" FontSize="24"/>
         <TextBox x:Name="txtQuantity" HorizontalAlignment="Left" Margin="121,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Height="30" FontSize="24"/>
         <TextBox x:Name="txtPrice" HorizontalAlignment="Left" Margin="65,388,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Height="30" FontSize="24"/>
-        <Button Content="Lưu sản phẩm" HorizontalAlignment="Left" Margin="255,385,0,0" VerticalAlignment="Top" FontSize="24" Click="Button_Click"/>
+        <Button Content="Lưu sản phẩm" HorizontalAlignment="Left" Margin="255,385,0,0" VerticalAlignment="Top" FontSize="24" Click="btnXoa_Click"/>
+        <Button Content="Cập nhật" HorizontalAlignment="Left" Margin="444,385,0,0" VerticalAlignment="Top" FontSize="24" Click="btnCapNhat_Click"/>
+        <Button Content="Xoá" HorizontalAlignment="Left" Margin="562,385,0,0" VerticalAlignment="Top" FontSize="24" Click="btnXoa_Click" />
     </Grid>
 </Window>
