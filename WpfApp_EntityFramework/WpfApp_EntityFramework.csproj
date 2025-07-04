@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessObjects_EntityFramework\BusinessObjects_EntityFramework.csproj" />
+    <ProjectReference Include="..\DataAcessLayer_EntityFramework\DataAccessLayer_EntityFramework.csproj" />
+    <ProjectReference Include="..\Repositetories_EntityFramework\Repositetories_EntityFramework.csproj" />
+    <ProjectReference Include="..\Services_EntityFramework\Services_EntityFramework.csproj" />
+  </ItemGroup>
+
+</Project>
