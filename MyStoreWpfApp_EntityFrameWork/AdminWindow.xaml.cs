@@ -17,6 +17,7 @@ namespace MyStoreWpfApp_EntityFrameWork
             DisplayCategoriesAndProducts();
         }
 
+        //treeview
         private void DisplayCategoriesAndProducts()
         {
             tvCategory.Items.Clear();

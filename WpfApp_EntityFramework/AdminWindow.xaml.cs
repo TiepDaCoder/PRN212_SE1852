@@ -12,6 +12,8 @@ namespace WpfApp_EntityFramework
     {
         ICategoryService iCategoryService = new CategoryService();
         IProductService iProductService = new ProductService();
+        Category selected_category = null;
+        bool is_load_product_completed = false;
         public AdminWindow()
         {
             InitializeComponent();
@@ -20,6 +22,7 @@ namespace WpfApp_EntityFramework
 
         private void LoadCategoriesAndProductIntoTreeView()
         {
+            is_load_product_completed = false;
             //Tạo nút gốc:
             tvCategory.Items.Clear();
             TreeViewItem root = new TreeViewItem();
@@ -47,26 +50,147 @@ namespace WpfApp_EntityFramework
                 }
             }
             root.ExpandSubtree();
+            is_load_product_completed = true;
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-
+            txtMa.Clear();
+            txtTen.Clear();
+            txtSoLuong.Clear();
+            txtDonGia.Clear();
+            txtMa.Focus();
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                is_load_product_completed = false;
+                Product product = new Product();
+                product.ProductName = txtTen.Text;
+                product.UnitPrice = decimal.Parse(txtDonGia.Text);
+                product.UnitsInStock = short.Parse(txtSoLuong.Text);
+                //ta cần bổ sung thêm tham chiếu danh mục:
+                if (selected_category != null)
+                    product.CategoryId = selected_category.CategoryId;
+                bool ret = iProductService.SaveProduct(product);
+                if (ret)
+                {
+                    //1. Nạp lại Cây:
+                    TreeViewItem cate_node = tvCategory.SelectedItem as TreeViewItem;
+                    if (cate_node == null || selected_category == null)
+                        return;
+                    TreeViewItem product_node = new TreeViewItem();
+                    product_node.Header = product.ProductName;
+                    product_node.Tag = product;
+                    cate_node.Items.Add(product_node);
+                    //2. Nạp lại ListView
+                    List<Product> products = iProductService
+                                   .GetProductsByCategory(selected_category.CategoryId);
+                    lvProduct.ItemsSource = null;
+                    lvProduct.ItemsSource = products;
+                }
+                is_load_product_completed = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Lỗi lưu mới : " + ex.Message,
+                    "Thông báo lỗi", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                is_load_product_completed = false;
+                if (selected_category == null)
+                    return;
+                Product product = new Product();
+                product.ProductId = int.Parse(txtMa.Text);
+                product.ProductName = txtTen.Text;
+                product.UnitPrice = decimal.Parse(txtDonGia.Text);
+                product.UnitsInStock = short.Parse(txtSoLuong.Text);
+                product.CategoryId = selected_category.CategoryId;
+                bool ret = iProductService.UpdateProduct(product);
+                if (ret)
+                {
+                    //Bước 1: Nạp lại cây cho Node danh mục mới đổi
+                    TreeViewItem cate_node = tvCategory.SelectedItem as TreeViewItem;
+                    if (cate_node == null || selected_category == null)
+                        return;
+                    cate_node.Items.Clear();
+                    var products_by_cate = iProductService
+                        .GetProductsByCategory(selected_category.CategoryId);
+                    foreach (var p in products_by_cate)
+                    {
+                        TreeViewItem p_node = new TreeViewItem();
+                        p_node.Header = p.ProductName;
+                        p_node.Tag = p;
+                        cate_node.Items.Add(p_node);
+                    }
+                    //Bước 2: Nạp lại sản phẩm trên ListView
+                    List<Product> products = iProductService
+                                   .GetProductsByCategory(selected_category.CategoryId);
+                    lvProduct.ItemsSource = null;
+                    lvProduct.ItemsSource = products;
+                }
+                is_load_product_completed = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Lỗi CẬP NHẬT: " + ex.Message,
+                    "Thông báo lỗi", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                is_load_product_completed = false;
 
+                int product_id = int.Parse(txtMa.Text);
+
+                //ta tự gọi messagebox để xác nhận xóa:
+                bool ret = iProductService.DeleteProduct(product_id);
+                if (ret)
+                {
+                    //Bước 1: Nạp lại cây cho Node danh mục mới đổi
+                    TreeViewItem cate_node = tvCategory.SelectedItem as TreeViewItem;
+                    if (cate_node == null || selected_category == null)
+                        return;
+                    cate_node.Items.Clear();
+                    var products_by_cate = iProductService
+                        .GetProductsByCategory(selected_category.CategoryId);
+                    foreach (var p in products_by_cate)
+                    {
+                        TreeViewItem p_node = new TreeViewItem();
+                        p_node.Header = p.ProductName;
+                        p_node.Tag = p;
+                        cate_node.Items.Add(p_node);
+                    }
+                    //Bước 2: Nạp lại sản phẩm trên ListView
+                    List<Product> products = iProductService
+                                   .GetProductsByCategory(selected_category.CategoryId);
+                    lvProduct.ItemsSource = null;
+                    lvProduct.ItemsSource = products;
+                }
+
+                is_load_product_completed = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Lỗi XÓA: " + ex.Message,
+                    "Thông báo lỗi", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
 
         private void tvCategory_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -109,7 +233,17 @@ namespace WpfApp_EntityFramework
 
         private void lvProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (is_load_product_completed == false)
+                return;
+            if (e.AddedItems.Count < 0)
+                return;
+            Product product = e.AddedItems[0] as Product;
+            if (product == null)
+                return;
+            txtMa.Text = product.ProductId.ToString();
+            txtTen.Text = product.ProductName.ToString();
+            txtDonGia.Text = product.UnitPrice.ToString();
+            txtSoLuong.Text = product.UnitsInStock.ToString();
         }
     }
 }

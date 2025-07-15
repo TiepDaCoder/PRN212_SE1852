@@ -9,7 +9,6 @@
     <DockPanel>
         <WrapPanel DockPanel.Dock="Top" Height="50" Background="Yellow">
             <Label Content="Hệ thống ADMIN quản trị STORE" FontSize="20" />
-
         </WrapPanel>
         <StackPanel DockPanel.Dock="Bottom" Height="30" Background="Pink">
             <Label Content="Designed by: Trần Thị Héo"/>

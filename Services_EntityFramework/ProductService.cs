@@ -10,6 +10,12 @@ namespace Services_EntityFramework
         {
             repository = new ProductRepository();
         }
+
+        public bool DeleteProduct(int productId)
+        {
+            return repository.DeleteProduct(productId);
+        }
+
         public List<Product> GetProducts()
         {
             return repository.GetProducts();
@@ -18,6 +24,16 @@ namespace Services_EntityFramework
         public List<Product> GetProductsByCategory(int cateid)
         {
             return repository.GetProductsByCategory(cateid);
+        }
+
+        public bool SaveProduct(Product product)
+        {
+            return repository.SaveProduct(product);
+        }
+
+        public bool UpdateProduct(Product product)
+        {
+            return repository.UpdateProduct(product);
         }
     }
 }
