@@ -1,0 +1,58 @@
+﻿<Window x:Class="ManageProductsApp.WindowManageProducts"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ManageProductsApp"
+        mc:Ignorable="d"
+        Title="Manage Products" Height="430" Width="420"
+        Loaded="Window_Loaded" WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <DockPanel VerticalAlignment="Top" Margin="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Đặt DataContext cho toàn bộ StackPanel -->
+            <StackPanel Background="LightBlue" Orientation="Vertical"
+                        HorizontalAlignment="Left" Width="400"
+                        DataContext="{Binding ElementName=lvProducts, Path=SelectedItem}">
+
+                <Label Foreground="Red" FontWeight="DemiBold" FontSize="20"
+                       Content="Product Information" />
+
+                <Label Content="ProductID" />
+                <TextBox Name="txtProductID" HorizontalAlignment="Left"
+                         Height="25" Width="300"
+                         Text="{Binding ProductID, Mode=OneWay}" />
+
+                <Label Content="Product Name" />
+                <TextBox Name="txtProductName" HorizontalAlignment="Left"
+                         Height="25" Width="300"
+                         Text="{Binding ProductName, Mode=OneWay}" />
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button x:Name="btnInsert" Margin="10" Width="70" Content="Insert"
+                            Click="btnInsert_Click" />
+                    <Button x:Name="btnUpdate" Margin="10" Width="70" Content="Update"
+                            Click="btnUpdate_Click" />
+                    <Button x:Name="btnDelete" Margin="10" Width="70" Content="Delete"
+                            Click="btnDelete_Click" />
+                </StackPanel>
+            </StackPanel>
+
+            <ListView Grid.Row="1" Name="lvProducts" Width="400">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Product ID" Width="100"
+                                        DisplayMemberBinding="{Binding ProductID}" />
+                        <GridViewColumn Header="Product Name" Width="200"
+                                        DisplayMemberBinding="{Binding ProductName}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </DockPanel>
+</Window>
